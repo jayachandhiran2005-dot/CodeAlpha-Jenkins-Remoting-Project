@@ -1,0 +1,11 @@
+services:
+  agent:
+    image: jenkins/inbound-agent:latest-jdk17
+    container_name: jenkins-agent
+    restart: unless-stopped
+    init: true
+    environment:
+      JENKINS_URL: ${JENKINS_URL}
+      JENKINS_AGENT_NAME: ${JENKINS_AGENT_NAME}
+      JENKINS_SECRET: ${JENKINS_SECRET}
+      JENKINS_WEB_SOCKET: "true"

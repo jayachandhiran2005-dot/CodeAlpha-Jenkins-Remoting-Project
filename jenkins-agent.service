@@ -1,0 +1,21 @@
+[Unit]
+Description=Jenkins Remoting Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=jenkins
+WorkingDirectory=/home/jenkins/agent
+ExecStart=/usr/bin/java -jar /home/jenkins/agent/agent.jar \
+  -url http://CONTROLLER:8080/ \
+  -name linux-node-1 \
+  -secret @/etc/jenkins/agent.secret \
+  -webSocket \
+  -workDir /home/jenkins/agent
+Restart=always
+RestartSec=10
+NoNewPrivileges=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target
